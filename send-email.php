@@ -1,5 +1,3 @@
-
-
 <?php
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -58,9 +56,9 @@ if ($contentType === "application/json") {
 }
 
 function sendEmail($contenu) {
-    $emailDestinataire='azoulaye42@gmail.com';
-    $nomDestinataire = 'eden';
-    $objetMail= 'Résultat de l\'enquête Vizit déménagement';
+    $emailDestinataire = 'azoulaye42@gmail.com';
+    $nomDestinataire = 'Dave';
+    $objetMail = 'Résultat de l\'enquête Vizit déménagement';
 
     try {
         $mail = new PHPMailer(true);
@@ -69,15 +67,15 @@ function sendEmail($contenu) {
         $mail->Host = 'smtp-relay.brevo.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'edenaz31@gmail.com';
-        $mail->Password = 'xsmtpsib-13fb4b9025c6514e2878e7e0f7e546ded4958d4bfa81ead65a028dc6d88905eb-rLgO3TPDW1UpwI7n';
+        $mail->Password = 'xsmtpsib-13fb4b9025c6514e2878e7e0f7e546ded4958d4bfa81ead65a028dc6d88905eb-rLgO3TPDW1UpwI7n'; // Replace with your actual SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
-        $mail->setFrom('contact@spotifone.com', 'Vizit Déménagement');
+        $mail->setFrom('edenaz31@gmail.com', 'Vizit Déménagement');
         $mail->addAddress($emailDestinataire, $nomDestinataire);
 
-                // Spécifiez l'encodage du contenu de l'email
-                $mail->CharSet = 'UTF-8';
+        // Spécifiez l'encodage du contenu de l'email
+        $mail->CharSet = 'UTF-8';
 
         $mail->isHTML(true);
         $mail->Subject = $objetMail;
@@ -88,7 +86,7 @@ function sendEmail($contenu) {
         return true;
 
     } catch (Exception $e) {
-        throw new Exception("Le message n'a pas pu être envoyé. Mailer Error: {$mail->ErrorInfo}");
+        throw new Exception("Le message n'a pas pu être envoyé. Mailer Error: {$e->getMessage()}");
     }
 }
 
