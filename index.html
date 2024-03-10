@@ -130,17 +130,11 @@
         console.log('Success:', data);
         // Gestion des modaux en fonction de la moyenne
         if (averageRating >= 3.8) {
-          setTimeout(() => {
-            window.location.href = 'https://fr.trustpilot.com/evaluate/vizit-demenagement.fr';
-          }, 2000);
+
           goodModal.style.display = "block";
+          window.location.href = 'https://fr.trustpilot.com/evaluate/vizit-demenagement.fr';
+
         } else {
-          setTimeout(() => {
-            document.body.innerHTML = '';
-            setTimeout(() => {
-              window.close();
-            }, 1000);
-          }, 3000);
           badModal.style.display = "block";
         }
       })
