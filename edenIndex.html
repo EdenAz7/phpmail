@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="edenCss.css">
+  <link rel="icon" href="LOGO-VIZIT.png" type="image/x-icon" style="border-radius: 100%;">
+  <title>Enquête Vizit demenagement</title>
+</head>
+
+<body>
+  <form id="quiz-container" action="http://localhost:3000/submit-form" method="POST">
+
+    <h1 id="header">Enquête sur nos services <br> <img src="LOGO-VIZIT.png" alt="" width="200px"> </h1>
+
+    <div class="question">
+      <label for="fullName">Nom Complet:</label>
+      <input type="text" id="fullName" name="fullName" required>
+    </div>
+
+    <h3>Sur une échelle de 1 (Mauvais) à 5 (Parfait)</h3><br>
+    <div class="question">
+      <p>1. Étiez-vous satisfait du processus de planification de votre déménagement?</p>
+      <div class="rating" data-question="1"></div>
+    </div>
+
+    <div class="question">
+      <p>2. À quel point notre personnel était-il courtois et professionnel pendant toute la durée du service ?</p>
+      <div class="rating" data-question="2"></div>
+    </div>
+
+    <div class="question">
+      <p>3. À quel point avez-vous trouvé que notre équipe a pris des précautions spécifiques pour protéger et manipuler
+        vos biens fragiles pendant le processus de déménagement ?</p>
+      <div class="rating" data-question="3"></div>
+    </div>
+
+    <div class="question">
+      <p>4. Comment évalueriez-vous la communication avec notre entreprise, y compris la clarté des informations
+        fournies avant et pendant le déménagement ?</p>
+      <div class="rating" data-question="4"></div>
+    </div>
+
+    <div class="question">
+      <p>5. Dans l'ensemble, à quel point êtes-vous satisfait(e) de la qualité globale des services de déménagement que
+        vous avez reçus de notre part ?</p>
+      <div class="rating" data-question="5"></div>
+    </div>
+
+    <input type="submit" value="Page suivante">
+  </form>
+
+
+  <div id="goodModal" class="goodModal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <h3>Encore une seconde!</h3>
+      <p>Une page va s'ouvrir pour laisser un avis</p>
+      <p>Merci</p>
+
+    </div>
+
+  </div>
+
+  <div id="badModal" class="badModal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <p>
+      <h4>Nous vous remercions sincèrement de votre coopération.</h4> <br>
+      nous avons pris en considération votre avis et l'avons communiqué à notre équipe technique.</p>
+    </div>
+
+  </div>
+</body>
+<!-- <script src="edenJs.js"></script> -->
+<script>
+  var badModal = document.getElementById("badModal");
+  var goodModal = document.getElementById("goodModal");
+  const ratings = document.querySelectorAll('.rating');
+  const form = document.getElementById('quiz-container');
+
+  ratings.forEach(rating => {
+    for (let i = 1; i <= 5; i++) {
+      const star = document.createElement('span');
+      star.classList.add('star');
+      star.innerHTML = '★';
+      star.dataset.rating = i; // Store the rating value in data attribute
+      star.addEventListener('click', () => rateQuestion(rating, i));
+      rating.appendChild(star);
+    }
+  });
+
+  function rateQuestion(rating, value) {
+    const stars = rating.querySelectorAll('.star');
+    stars.forEach((star, index) => {
+      star.classList.toggle('active', index < value);
+    });
+  }
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const fullName = document.getElementById('fullName').value;
+    const values = Array.from(ratings).map(rating => {
+      const activeStars = rating.querySelectorAll('.star.active').length;
+      return { question: rating.dataset.question, rating: activeStars };
+    });
+
+    const averageRating = values.reduce((acc, val) => acc + val.rating, 0) / values.length;
+
+    // Préparation des données à envoyer
+    const dataToSend = {
+      fullName: fullName,
+      ratings: values,
+      averageRating: averageRating
+    };
+
+    // Envoi des données au serveur
+    fetch('send-email.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataToSend),
+    })
+      .then(response => response.text())
+      .then(data => {
+        console.log('Success:', data);
+        // Gestion des modaux en fonction de la moyenne
+        if (averageRating >= 3.8) {
+          setTimeout(() => {
+            window.location.href = 'https://fr.trustpilot.com/evaluate/vizit-demenagement.fr';
+          }, 2000);
+          goodModal.style.display = "block";
+        } else {
+          setTimeout(() => {
+            document.body.innerHTML = '';
+            setTimeout(() => {
+              window.close();
+            }, 1000);
+          }, 3000);
+          badModal.style.display = "block";
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  });
+</script>
+
+
+</html>

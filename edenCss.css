@@ -1,0 +1,118 @@
+/* Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  /* Quiz Container Styles */
+  #quiz-container {
+    width: 90%;
+    max-width: 600px;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Question Styles */
+  .question {
+    margin-bottom: 20px;
+  }
+  
+  /* Rating Styles */
+  .rating {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .star {
+    font-size: 30px;
+    cursor: pointer;
+    color: #ccc;
+    margin: 5px;
+  }
+  
+  .star:hover,
+  .star.active {
+    color: #fdd835; /* Yellow */
+  }
+  
+  /* Result Styles */
+  #result {
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  /* Submit Button Styles */
+  input[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #3045ae;
+    color: white;
+    cursor: pointer;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #0e1e6e;
+  }
+  
+  /* Modal Styles - check if needed */
+  .badModal,
+  .goodModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 25%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    margin: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Modal Content Styles - check if needed */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width:50%;
+  }
+  
+  /* Media Queries for responsiveness */
+  @media only screen and (max-width: 600px) {
+    .star {
+      font-size: 20px;
+    }
+  
+    input[type="submit"] {
+      font-size: 14px;
+    }
+  
+    /* Adjust other styles as needed for smaller screens */
+  }
