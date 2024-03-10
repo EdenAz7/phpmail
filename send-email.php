@@ -68,8 +68,8 @@ function sendEmail($contenu) {
         $mail->isSMTP();
         $mail->Host = 'smtp-relay.brevo.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'spotifone36@gmail.com';
-        $mail->Password = 'xsmtpsib-9da7a948e35fd054aba8e1f495223d2985e1ebf1ec6a1297d80a7a0b557cae2a-Qz173PcadtUHZ2jC';
+        $mail->Username = 'edenaz31@gmail.com';
+        $mail->Password = 'xsmtpsib-13fb4b9025c6514e2878e7e0f7e546ded4958d4bfa81ead65a028dc6d88905eb-rLgO3TPDW1UpwI7n';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
